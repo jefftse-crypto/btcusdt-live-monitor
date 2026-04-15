@@ -1,0 +1,30 @@
+services:
+  - type: worker
+    name: btcusdt-live-telegram
+    runtime: node
+    plan: starter
+    region: singapore
+    buildCommand: rm -rf app && mkdir -p app && tar -xzf btcusdt_live_worker_bundle.tar.gz -C app && cd app && npm install --include=dev
+    startCommand: cd app && npm run live:btcusdt-alerts
+    autoDeployTrigger: commit
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+      - key: BTCUSDT_LIVE_POLL_MS
+        value: "300000"
+      - key: BTCUSDT_LIVE_HTTP_TIMEOUT_MS
+        value: "20000"
+      - key: BTCUSDT_LIVE_TELEGRAM_TIMEOUT_MS
+        value: "15000"
+      - key: BTCUSDT_LIVE_FETCH_RETRIES
+        value: "5"
+      - key: BTCUSDT_LIVE_TELEGRAM_RETRIES
+        value: "3"
+      - key: BTCUSDT_LIVE_LOOKBACK_1H
+        value: "5280"
+      - key: BTCUSDT_LIVE_LOOKBACK_1D
+        value: "420"
+      - key: BTCUSDT_LIVE_LOOKBACK_15M
+        value: "4320"
