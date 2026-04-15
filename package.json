@@ -1,5 +1,9 @@
 {
   "name": "btcusdt-live-monitor-render-bundle",
   "private": true,
-  "version": "1.0.0"
+  "version": "1.1.0",
+  "type": "module",
+  "scripts": {
+    "start:web": "node web_status_server.mjs"
+  }
 }
